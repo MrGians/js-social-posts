@@ -59,6 +59,31 @@ const socialPostList = [
 // Dichiaro variabili DOM
 const postContainer = document.getElementById("container");
 
+// ------------------------------ FUNZIONI ------------------------------ //
+
+// Creo una funzione che modifichi la visualizzazione della data in pagina in (gg-mm-aaaa)
+const editDate = (stringDate) => {
+  // Recupero la data in formato americano
+  const currentDate = stringDate;
+  console.log(stringDate)
+  // Inserisco i giorni in una variabile
+  const currentDay = currentDate.substr(3, 2);
+  console.log(currentDay);
+  // Inserisco i mesi in una variabile
+  const currentMonth = currentDate.substr(0, 2);
+  console.log(currentMonth);
+  // Inserisco gli anni in una variabile
+  const currentYear = currentDate.substr(6, 4);
+  console.log(currentYear);
+  // Ricostruisco la data in formato Italiano
+  const newDateIT = `${currentDay}-${currentMonth}-${currentYear}`
+  console.log(newDateIT);
+  // Restituisco newDateIT
+  return newDateIT;
+}
+
+// ------------------------------ SOCIAL POST ------------------------------ //
+
 // Inizializzo la variabile di appoggio postModule che conterrà i vari post da stampare sul DOM
 let postModule = "";
 
@@ -66,7 +91,10 @@ let postModule = "";
 for (let i = 0; i < socialPostList.length; i++) {
 
   // Eseguo il Destructuring dell'array di oggetti
-  const {post_id, author_name, author_pic, post_date, post_content, post_image, post_likes} = socialPostList[i];
+  let {post_id, author_name, author_pic, post_date, post_content, post_image, post_likes} = socialPostList[i];
+
+  // Modifico la data in formato italiano
+  post_date = editDate(post_date);
 
   // Creo l'inizio del post tramite il template literal
   postModule += `
@@ -142,6 +170,6 @@ for (let i = 0; i < likeButtons.length; i++) {
     if (event.currentTarget.classList.contains("like-button--liked")) likeTarget.innerText = ++socialPostList[i]["post_likes"];
     // Altrimenti (se viene rimossa) decremento di 1 i Likes
     else likeTarget.innerText = --socialPostList[i]["post_likes"];
-    
+
   })
 }
