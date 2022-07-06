@@ -56,7 +56,6 @@ const socialPostList = [
   },
 ];
 
-
 // Dichiaro variabili DOM
 const postContainer = document.getElementById("container");
 
@@ -69,14 +68,28 @@ for (let i = 0; i < socialPostList.length; i++) {
   // Eseguo il Destructuring dell'array di oggetti
   const {post_id, author_name, author_pic, post_date, post_content, post_image, post_likes} = socialPostList[i];
 
-  // Creo il post da stampare in pagina tramite il template literal
+  // Creo l'inizio del post tramite il template literal
   postModule += `
     <div class="post">
       <div class="post__header">
         <div class="post-meta">
-          <div class="post-meta__icon">
-            <img class="profile-pic" src="${author_pic}" alt="${author_name}" />
-          </div>
+  `;
+  // Verifico che l'utente abbia un'immagine di profilo o meno
+  if (author_pic === "") {
+    postModule += `
+            <div class="post-meta__icon">
+              <span class="profile-pic-default">G M</span>
+            </div>
+    `;        // ! TO DO: INSERIRE INIZIALI DINAMICAMENTE 
+  } else {
+    postModule += `
+            <div class="post-meta__icon">
+              <img class="profile-pic" src="${author_pic}" alt="${author_name}" />
+            </div>
+    `;
+  }
+  // Concateno la fine del post 
+  postModule += `
           <div class="post-meta__data">
             <div class="post-meta__author">${author_name}</div>
             <div class="post-meta__time">${post_date}</div>
@@ -90,19 +103,45 @@ for (let i = 0; i < socialPostList.length; i++) {
       <div class="post__footer">
         <div class="likes js-likes">
           <div class="likes__cta">
-            <a class="like-button js-like-button" href="#" data-postid="${post_id}">
+            <button class="like-button js-like-button" data-postid="${post_id}">
               <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
               <span class="like-button__label">Mi Piace</span>
-            </a>
+            </button>
           </div>
           <div class="likes__counter">Piace a <b id="like-counter-${post_id}" class="js-likes-counter">${post_likes}</b> persone</div>
         </div>
       </div>
     </div>
   `;
+  
 }
+
 // Inserisco nel DOM i post generati dal ciclo
 postContainer.innerHTML = postModule;
 
 
 
+// Recupero i bottoni "Mi piace" dal DOM
+const likeButtons = document.querySelectorAll(".js-like-button");
+let elementLikes = document.querySelectorAll(`.js-likes-counter`);
+
+
+// Creo un ciclo FOR per girare nell'array "likeButtons"
+for (let i = 0; i < likeButtons.length; i++) {
+
+  // Al click del bottone "Mi piace" cambio il colore del testo ed incremento il numero dei mi piace +1
+  likeButtons[i].addEventListener("click", (event) => {
+
+    // Al click del bottone, viene aggiunta/rimossa la classe "like-button--liked"
+    event.currentTarget.classList.toggle("like-button--liked");
+
+    // Creo una variabile d'appoggio per l'indice di ElementLikes
+    const likeTarget = elementLikes[i];
+   
+    // SE il bottone contiene la classe "like-button--liked" allora incremento di 1 i Likes
+    if (event.currentTarget.classList.contains("like-button--liked")) likeTarget.innerText = ++socialPostList[i]["post_likes"];
+    // Altrimenti (se viene rimossa) decremento di 1 i Likes
+    else likeTarget.innerText = --socialPostList[i]["post_likes"];
+    
+  })
+}

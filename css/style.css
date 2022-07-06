@@ -16,6 +16,8 @@ h1 {
     color: white;
 }
 
+button {border: none;}
+
 .main-title {
     text-align: center;
     margin: 24px 0;
