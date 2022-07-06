@@ -11,8 +11,6 @@
 // - testo del post,
 // - immagine (non tutti i post devono avere una immagine),
 // - numero di likes.
-// *Non è necessario creare date casuali, inventatele*
-// *Per le immagini va bene utilizzare qualsiasi servizio di placeholder ad es. Unsplash (https://unsplash.it/300/300?image=3)*
 
 // #Milestone 2
 // Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
@@ -24,3 +22,34 @@
 //  1. Formattare le date in formato italiano (gg/mm/aaaa)
 //  2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola  => LF).
 //  3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+
+
+const socialPostList = [
+  {
+    post_id: 1,
+    author_name: "Phil Mangione",
+    author_pic: "https://unsplash.it/300/300?image=15",
+    post_date: "12-17-2021",
+    post_content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias",
+    post_image: "https://unsplash.it/600/300?image=100",
+    post_likes: 80,
+  },
+  {
+    post_id: 2,
+    author_name: "Sofia Perlari",
+    author_pic: "https://unsplash.it/300/300?image=19",
+    post_date: "02-23-2022",
+    post_content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias",
+    post_image: "https://unsplash.it/600/300?image=101",
+    post_likes: 120,
+  },
+  {
+    post_id: 3,
+    author_name: "Gianluca Mura",
+    author_pic: "",
+    post_date: "04-15-2022",
+    post_content: "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias",
+    post_image: "https://unsplash.it/600/300?image=102",
+    post_likes: 29,
+  },
+];
