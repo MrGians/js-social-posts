@@ -61,6 +61,16 @@ const postContainer = document.getElementById("container");
 
 // ------------------------------ FUNZIONI ------------------------------ //
 
+// Creo una funzione per renderizzare l'immagine di profilo utente
+const renderProfilePicture = (author_pic, author_name) => {
+  // Verifico che l'utente abbia un'immagine di profilo o meno
+  if (author_pic === "") {
+    return `<span class="profile-pic-default">G M</span>`;
+  } else {
+    return `<img class="profile-pic" src="${author_pic}" alt="${author_name}" />`;
+  }
+}
+
 // Creo una funzione che modifichi la visualizzazione della data in pagina in (gg-mm-aaaa)
 const editDate = (stringDate) => {
   // Recupero la data
@@ -85,23 +95,9 @@ for (let i = 0; i < socialPostList.length; i++) {
     <div class="post">
       <div class="post__header">
         <div class="post-meta">
-  `;
-  // Verifico che l'utente abbia un'immagine di profilo o meno
-  if (author_pic === "") {
-    postModule += `
-            <div class="post-meta__icon">
-              <span class="profile-pic-default">G M</span>
-            </div>
-    `;        // ! TO DO: INSERIRE INIZIALI DINAMICAMENTE 
-  } else {
-    postModule += `
-            <div class="post-meta__icon">
-              <img class="profile-pic" src="${author_pic}" alt="${author_name}" />
-            </div>
-    `;
-  }
-  // Concateno la fine del post 
-  postModule += `
+          <div class="post-meta__icon">
+            ${renderProfilePicture(author_pic, author_name)}
+          </div>
           <div class="post-meta__data">
             <div class="post-meta__author">${author_name}</div>
             <div class="post-meta__time">${editDate(post_date)}</div>
