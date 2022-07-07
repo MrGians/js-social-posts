@@ -63,23 +63,10 @@ const postContainer = document.getElementById("container");
 
 // Creo una funzione che modifichi la visualizzazione della data in pagina in (gg-mm-aaaa)
 const editDate = (stringDate) => {
-  // Recupero la data in formato americano
-  const currentDate = stringDate;
-  console.log(stringDate)
-  // Inserisco i giorni in una variabile
-  const currentDay = currentDate.substr(3, 2);
-  console.log(currentDay);
-  // Inserisco i mesi in una variabile
-  const currentMonth = currentDate.substr(0, 2);
-  console.log(currentMonth);
-  // Inserisco gli anni in una variabile
-  const currentYear = currentDate.substr(6, 4);
-  console.log(currentYear);
-  // Ricostruisco la data in formato Italiano
-  const newDateIT = `${currentDay}-${currentMonth}-${currentYear}`
-  console.log(newDateIT);
-  // Restituisco newDateIT
-  return newDateIT;
+  // Recupero la data
+  const date = new Date(stringDate);
+  // Restituisco la data
+  return date.toLocaleDateString();
 }
 
 // ------------------------------ SOCIAL POST ------------------------------ //
@@ -91,10 +78,7 @@ let postModule = "";
 for (let i = 0; i < socialPostList.length; i++) {
 
   // Eseguo il Destructuring dell'array di oggetti
-  let {post_id, author_name, author_pic, post_date, post_content, post_image, post_likes} = socialPostList[i];
-
-  // Modifico la data in formato italiano
-  post_date = editDate(post_date);
+  const {post_id, author_name, author_pic, post_date, post_content, post_image, post_likes} = socialPostList[i];
 
   // Creo l'inizio del post tramite il template literal
   postModule += `
@@ -120,7 +104,7 @@ for (let i = 0; i < socialPostList.length; i++) {
   postModule += `
           <div class="post-meta__data">
             <div class="post-meta__author">${author_name}</div>
-            <div class="post-meta__time">${post_date}</div>
+            <div class="post-meta__time">${editDate(post_date)}</div>
           </div>
         </div>
       </div>
